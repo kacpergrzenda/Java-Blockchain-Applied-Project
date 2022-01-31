@@ -1,13 +1,13 @@
-package ie.gmit.sw.blockchain;
+package ie.gmit.blockchainmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BlockchainApplication {
+public class BlockchainmanagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BlockchainApplication.class, args);
+		SpringApplication.run(BlockchainmanagerApplication.class, args);
 	}
 
 }

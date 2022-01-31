@@ -1,10 +1,10 @@
-package ie.gmit.sw.blockchain;
+package ie.gmit.blockchainmanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BlockchainApplicationTests {
+class BlockchainmanagerApplicationTests {
 
 	@Test
 	void contextLoads() {
