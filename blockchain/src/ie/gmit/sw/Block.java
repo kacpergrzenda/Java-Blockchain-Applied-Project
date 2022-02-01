@@ -48,9 +48,4 @@ public class Block {
 				+ previousHash + ", hash=" + hash + "]";
 	}
 
-	public static void main(String[] args) {
-		Block b = new Block(0, "hello", "test");
-		System.out.println(b.toString());
-	}
-
 }
