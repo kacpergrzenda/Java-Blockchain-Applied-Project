@@ -11,6 +11,7 @@ public class Block {
 	private String data;
 	private String previousHash;
 	private String hash;
+	private int nonce;
 	
 	private Date date = new Date();  
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");  
@@ -21,6 +22,7 @@ public class Block {
 		this.data = data;
 		this.previousHash = previousHash;
 		this.hash = calculateHash(index, previousHash, timestamp, data);
+		this.nonce = 0;
 	}
 	
 	public String getPreviousHash() {
@@ -45,7 +47,7 @@ public class Block {
 
 	public String calculateHash(int index, String previousHash, String timestamp, String data)
 	{
-		String convertToHash = Integer.toString(index) + previousHash + timestamp + data;
+		String convertToHash = Integer.toString(index) + previousHash + this.timestamp + data + this.nonce;
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] hash = md.digest(convertToHash.getBytes("UTF-8"));
@@ -60,6 +62,16 @@ public class Block {
 		} catch(Exception ex){
 			throw new RuntimeException(ex);
 	    }
+	}
+	
+	public void mineBlock(int difficulty) {
+		System.out.println("Mining Block...");
+		String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0" 
+		while(!this.hash.substring( 0, difficulty).equals(target)) {
+			nonce ++;
+			this.hash = calculateHash(this.index, this.previousHash, this.timestamp, this.data);
+		}
+		System.out.println("Block Mined!!! : " + hash);
 	}
 	
 	@Override
