@@ -23,7 +23,27 @@ public class Block {
 		this.hash = calculateHash(index, previousHash, timestamp, data);
 	}
 	
-	private String calculateHash(int index, String previousHash, String timestamp, String data)
+	public String getPreviousHash() {
+		return previousHash;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public String calculateHash(int index, String previousHash, String timestamp, String data)
 	{
 		String convertToHash = Integer.toString(index) + previousHash + timestamp + data;
 		try {
