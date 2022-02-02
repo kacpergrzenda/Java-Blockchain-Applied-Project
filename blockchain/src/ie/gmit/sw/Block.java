@@ -3,12 +3,13 @@ package ie.gmit.sw;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Block {
 	private int index;
 	private String timestamp;
-	private String data;
+	private ArrayList<String> transactionData = new ArrayList<String>();
 	private String previousHash;
 	private String hash;
 	private int nonce;
@@ -16,12 +17,12 @@ public class Block {
 	private Date date = new Date();  
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");  
 	
-	public Block(int index, String data, String previousHash) {
+	public Block(int index, ArrayList<String> transactionData, String previousHash) {
 		this.index = index;
 		this.timestamp = dateFormatter.format(date);
-		this.data = data;
+		this.transactionData.addAll(transactionData);
 		this.previousHash = previousHash;
-		this.hash = calculateHash(index, previousHash, timestamp, data);
+		this.hash = calculateHash(index, previousHash, timestamp, transactionData);
 		this.nonce = 0;
 	}
 	
@@ -37,17 +38,17 @@ public class Block {
 		return timestamp;
 	}
 
-	public String getData() {
-		return data;
+	public ArrayList<String> getTransactionData() {
+		return transactionData;
 	}
 
 	public String getHash() {
 		return hash;
 	}
 
-	public String calculateHash(int index, String previousHash, String timestamp, String data)
+	public String calculateHash(int index, String previousHash, String timestamp, ArrayList<String> transactionData)
 	{
-		String convertToHash = Integer.toString(index) + previousHash + this.timestamp + data + this.nonce;
+		String convertToHash = Integer.toString(index) + previousHash + this.timestamp + transactionData + this.nonce;
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] hash = md.digest(convertToHash.getBytes("UTF-8"));
@@ -69,14 +70,14 @@ public class Block {
 		String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0" 
 		while(!this.hash.substring( 0, difficulty).equals(target)) {
 			nonce ++;
-			this.hash = calculateHash(this.index, this.previousHash, this.timestamp, this.data);
+			this.hash = calculateHash(this.index, this.previousHash, this.timestamp, this.transactionData);
 		}
 		System.out.println("Block Mined!!! : " + hash);
 	}
 	
 	@Override
 	public String toString() {
-		return "Block [index=" + index + ", timestamp=" + timestamp + ", data=" + data + ", previousHash="
+		return "Block [index=" + index + ", timestamp=" + timestamp + ", transactionData=" + transactionData + ", previousHash="
 				+ previousHash + ", hash=" + hash + "]";
 	}
 
