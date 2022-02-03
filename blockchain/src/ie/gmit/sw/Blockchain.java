@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Blockchain {
 	
-	public static ArrayList<Block> blockchain = new ArrayList<Block>();
+	public ArrayList<Block> blockchain = new ArrayList<Block>();
 	private int difficulty = 2;
 	private int miningReward = 10;
 	private ArrayList<String> pendingTransactions = new ArrayList<String>();
 	
-	public static Boolean isChainValid() {
+	public Boolean isChainValid() {
 		Block currentBlock; 
 		Block previousBlock;
 		
@@ -56,19 +56,15 @@ public class Blockchain {
 		blockchain.add(b);
 	}
 
-	public static void main(String[] args) {
-		Blockchain bc = new Blockchain();
-		bc.createGenesisBlock(); // Genesis Block
-		bc.addBlock("Second Block."); // Block 1
-		bc.addBlock("third Block."); // Block 1
-
-
-		//System.out.println(blockchain.get(2));
-
-
-		
-		System.out.println("How many blocks is there: " + blockchain.size());
-		System.out.println("Is Blockchain Valid: " + isChainValid());
-	}
+//	public static void main(String[] args) {
+//		Blockchain bc = new Blockchain();
+//		bc.createGenesisBlock(); // Genesis Block
+//		bc.addBlock("Second Block."); // Block 1
+//		bc.addBlock("third Block."); // Block 1
+//
+//		
+//		System.out.println("How many blocks is there: " + bc.blockchain.size());
+//		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
+//	}
 	
 }
