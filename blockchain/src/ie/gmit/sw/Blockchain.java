@@ -32,7 +32,11 @@ public class Blockchain {
 	}
 	
 	private String getLatestBlockHash() {
-		return blockchain.get(blockchain.size()-1).getHash();
+		if(blockchain.size() <= 0) {
+			return "0";
+		}else{
+			return blockchain.get(blockchain.size()-1).getHash();
+		}
 	}
 	
 //	public void minePendingTransactions(String minersHash) {
@@ -40,12 +44,13 @@ public class Blockchain {
 //		blockchain.get(blockchain.size()-1).mineBlock(this.difficulty);
 //	}
 	
-	public void addBlock(String newTransactionData) {
+	public Block addBlock(String newTransactionData) {
 		this.pendingTransactions.add(newTransactionData); //add new transaction to pending transactions list
 		Block b = new Block(blockchain.size(), this.pendingTransactions, getLatestBlockHash()); /// create a new black with the pending transactions
 		b.mineBlock(this.difficulty); // MineTheBlock
 		this.pendingTransactions.clear();
 		blockchain.add(b); // Once block is mined add the new block to block-chain
+		return b;
 	}
 	
 	public void createGenesisBlock() {
@@ -58,11 +63,11 @@ public class Blockchain {
 
 //	public static void main(String[] args) {
 //		Blockchain bc = new Blockchain();
-//		bc.createGenesisBlock(); // Genesis Block
+//		bc.addBlock("1"); // Genesis Block
 //		bc.addBlock("Second Block."); // Block 1
 //		bc.addBlock("third Block."); // Block 1
 //
-//		
+//		System.out.println(bc.blockchain.get(0));
 //		System.out.println("How many blocks is there: " + bc.blockchain.size());
 //		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
 //	}
