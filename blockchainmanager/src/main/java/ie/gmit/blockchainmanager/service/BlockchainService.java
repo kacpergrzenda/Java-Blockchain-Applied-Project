@@ -18,12 +18,12 @@ public class BlockchainService {
 		this.br = br;
 	}
 	
-	public Block addBlock(String newTransactionData) {
-		
+	public Block addBlock(String newTransactionData) {	
 		Block b = bc.addBlock(newTransactionData);
 		System.out.println("Service:" + bc.blockchain);
 		BlockManager bm = new BlockManager( b.getTimestamp() , b.getTransactionData(), b.getPreviousHash(), b.getHash(), 0);
 		br.save(bm);
+		System.out.println(bc.blockchain);
 		return b;
 	}
 }
