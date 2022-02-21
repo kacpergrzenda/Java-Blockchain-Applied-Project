@@ -16,7 +16,6 @@ public class BlockManager implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, updatable = false)
 	private Long id;
-	//private int index;
 	private String timestamp;
 	private ArrayList<String> transactionData = new ArrayList<String>();
 	private String previousHash;
@@ -25,9 +24,7 @@ public class BlockManager implements Serializable{
 	
 	public BlockManager()
 	{}
-//	
-//	
-//	
+
 	public BlockManager( String timestamp, ArrayList<String> transactionData, String previousHash,
 			String hash, int nonce) {
 		this.timestamp = timestamp;
@@ -38,19 +35,12 @@ public class BlockManager implements Serializable{
 	}
 
 
-
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-//	public int getIndex() {
-//		return index;
-//	}
-//	public void setIndex(int index) {
-//		this.index = index;
-//	}
 	public String getTimestamp() {
 		return timestamp;
 	}

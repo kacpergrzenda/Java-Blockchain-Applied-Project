@@ -9,11 +9,12 @@ public class Blockchain {
 	private int miningReward = 10;
 	private ArrayList<String> pendingTransactions = new ArrayList<String>();
 	
+	/* Checks if the Blockchain is valid by running a consesus by all the blocks in the chain */
 	public Boolean isChainValid() {
 		Block currentBlock; 
 		Block previousBlock;
 		
-		//loop through blockchain to check hashes:
+		//loop through block-chain to check hashes:
 		for(int i=1; i < blockchain.size(); i++) {
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
