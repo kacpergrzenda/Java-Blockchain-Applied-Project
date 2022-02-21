@@ -75,10 +75,10 @@ public class Block {
 		System.out.println("Block Mined!!! : " + hash);
 	}
 	
-	@Override
-	public String toString() {
-		return "Block [index=" + index + ", timestamp=" + timestamp + ", transactionData=" + transactionData + ", previousHash="
-				+ previousHash + ", hash=" + hash + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Block [index=" + index + ", timestamp=" + timestamp + ", transactionData=" + transactionData + ", previousHash="
+//				+ previousHash + ", hash=" + hash + "]";
+//	}
 
 }

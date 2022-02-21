@@ -47,12 +47,19 @@ public class Blockchain {
 	
 	public Block addBlock(String newTransactionData) {
 		this.pendingTransactions.add(newTransactionData); //add new transaction to pending transactions list
-		Block b = new Block(blockchain.size(), this.pendingTransactions, getLatestBlockHash()); /// create a new black with the pending transactions
+		
+		
+		
+		/* ADD HERE A POTENRTIAL BLOCKER TO NOT ADD THE BLOCK UNTIL MINING HAPPENS */
+		
+		/// create a new black with the pending transactions
+		Block b = new Block(blockchain.size(), this.pendingTransactions, getLatestBlockHash());
 		b.mineBlock(this.difficulty); // MineTheBlock
 		this.pendingTransactions.clear();
 		blockchain.add(b); // Once block is mined add the new block to block-chain
 		return b;
 	}
+	
 	
 	public void createGenesisBlock() {
 		this.pendingTransactions.add("The Times Jan/03/2009 Chancellor on brink of second bailout for banks.");
