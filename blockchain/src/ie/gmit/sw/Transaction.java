@@ -27,11 +27,20 @@ public class Transaction {
 	// This Calculates the transaction hash (which will be used as its Id)
 	private String calculateTransactionHash() {
 		hashChanger++; //increase the sequence to avoid 2 identical transactions having the same hash
-		String convertToHash = getStringFromKey(sender) + getStringFromKey(reciepient) + Integer.toString(amount) + hashChanger;
+		String convertToHash = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Integer.toString(amount) + hashChanger;
 		return BlockchainCryptography.convertToHash(convertToHash);
 	}
-
-	public String getStringFromKey(Key key) {
-		return Base64.getEncoder().encodeToString(key.getEncoded());
+	
+	//Signs all the data we dont wish to be tampered with.
+	public void generateSignature(PrivateKey privateKey) {
+		String data = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount)	;
+		signature = BlockchainCryptography.applySignature(privateKey,data);		
 	}
+	
+	//Verifies the data we signed hasnt been tampered with
+	public boolean verifiySignature() {
+		String data = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount)	;
+		return BlockchainCryptography.verifySignature(sender, data, signature);
+	}
+	
 }

@@ -48,7 +48,7 @@ public class Blockchain {
 	public Block addBlock(String newTransactionData) {
 		this.pendingTransactions.add(newTransactionData); //add new transaction to pending transactions list
 		
-		
+		//add the transaction from transaction class^^^^
 		
 		/* ADD HERE A POTENRTIAL BLOCKER TO NOT ADD THE BLOCK UNTIL MINING HAPPENS */
 		
