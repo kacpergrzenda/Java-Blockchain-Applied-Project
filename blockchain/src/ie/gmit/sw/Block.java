@@ -13,10 +13,10 @@ public class Block {
 	private String previousHash;
 	private String hash;
 	private int nonce;
-	
+
 	private Date date = new Date();  
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");  
-	
+
 	public Block(int index, ArrayList<String> transactionData, String previousHash) {
 		this.index = index;
 		this.timestamp = dateFormatter.format(date);
@@ -25,7 +25,7 @@ public class Block {
 		this.hash = calculateHash(index, previousHash, timestamp, transactionData);
 		this.nonce = 0;
 	}
-	
+
 	public String getPreviousHash() {
 		return previousHash;
 	}
@@ -49,22 +49,9 @@ public class Block {
 	public String calculateHash(int index, String previousHash, String timestamp, ArrayList<String> transactionData)
 	{
 		String convertToHash = Integer.toString(index) + previousHash + this.timestamp + transactionData + this.nonce;
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			byte[] hash = md.digest(convertToHash.getBytes("UTF-8"));
-			StringBuilder hexString = new StringBuilder();
-			for (int i = 0; i < hash.length; i++) {
-	            final String hex = Integer.toHexString(0xff & hash[i]);
-	            if(hex.length() == 1) 
-	              hexString.append('0');
-	            hexString.append(hex);
-	        }
-			return hexString.toString();
-		} catch(Exception ex){
-			throw new RuntimeException(ex);
-	    }
+		return BlockchainCryptography.convertToHash(convertToHash);
 	}
-	
+
 	public void mineBlock(int difficulty) {
 		System.out.println("Mining Block...");
 		String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0" 
@@ -74,11 +61,5 @@ public class Block {
 		}
 		System.out.println("Block Mined!!! : " + hash);
 	}
-	
-//	@Override
-//	public String toString() {
-//		return "Block [index=" + index + ", timestamp=" + timestamp + ", transactionData=" + transactionData + ", previousHash="
-//				+ previousHash + ", hash=" + hash + "]";
-//	}
 
 }
