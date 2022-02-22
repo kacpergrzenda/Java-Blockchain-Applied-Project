@@ -1,13 +1,20 @@
 package ie.gmit.sw;
 
 import java.util.ArrayList;
-
+import java.util.Base64;
+import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import com.google.gson.GsonBuilder;
 public class Blockchain {
 	
 	public ArrayList<Block> blockchain = new ArrayList<Block>();
 	private int difficulty = 2;
 	private int miningReward = 10;
 	private ArrayList<String> pendingTransactions = new ArrayList<String>();
+	
+	public static Wallet walletA;
+	public static Wallet walletB;
 	
 	/* Checks if the Blockchain is valid by running a consesus by all the blocks in the chain */
 	public Boolean isChainValid() {
@@ -78,6 +85,23 @@ public class Blockchain {
 //		System.out.println(bc.blockchain.get(0));
 //		System.out.println("How many blocks is there: " + bc.blockchain.size());
 //		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
+//	}
+	
+//	public static void main(String[] args) {
+//		Security.addProvider(new BouncyCastleProvider()); 
+//		
+//		walletA = new Wallet();
+//		walletB = new Wallet();
+//		
+//		System.out.println("Private and public keys:");
+//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.privateKey));
+//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.publicKey));
+//		
+//		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5);
+//		transaction.generateSignature(walletA.privateKey);
+//		//Verify the signature works and verify it from the public key
+//		System.out.println("Is signature verified");
+//		System.out.println(transaction.verifiySignature());
 //	}
 	
 }
