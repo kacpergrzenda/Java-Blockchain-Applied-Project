@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <a routerLink="/" class="logo-button">
+    BLOCKCHAIN 
+  </a>
+  <mat-icon aria-hidden="false" aria-label="link icon">link</mat-icon>
+  <span class="toolbar-button-spacer"></span>
+  <div class="button-row">
+    <button mat-raised-button class="button-navigation" routerLink="/transactions">Create Transaction</button>
+    <button mat-raised-button class="button-navigation" routerLink="/mining">Mine Transaction</button>
+  </div>
+</mat-toolbar>
+
+<div *ngFor="let block of blocks">
+    <div>{{block.hash}}</div>
+  </div>
+<p>home works!</p>
