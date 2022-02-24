@@ -1,6 +1,9 @@
 package ie.gmit.blockchainmanager.service;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +12,16 @@ import ie.gmit.blockchainmanager.model.BlockManager;
 import ie.gmit.blockchainmanager.repo.BlockchainRepo;
 import ie.gmit.sw.Block;
 import ie.gmit.sw.Blockchain;
+import ie.gmit.sw.BlockchainCryptography;
+import ie.gmit.sw.Wallet;
 
 @Service
 public class BlockchainService {
 	private final BlockchainRepo br;
 	private final Blockchain bc = new Blockchain(); /* Create a instance of the Blockchain from Blockchain class */
+	private HashMap<String, PrivateKey> privateKeyMap = new HashMap<String, PrivateKey>();
+	private HashMap<String, PublicKey> publicKeyMap = new HashMap<String, PublicKey>();
+	
 	@Autowired
 	public BlockchainService(BlockchainRepo br) {
 		super();
@@ -32,5 +40,19 @@ public class BlockchainService {
 	
 	public ArrayList<Block> getAllBlocks() {
 		return bc.blockchain;
+	}
+	
+	public String[] genrateWallet() {
+		Wallet generatedWallet = new Wallet();
+		privateKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), generatedWallet.privateKey);
+		publicKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey), generatedWallet.publicKey);
+
+		/* Test */
+		System.out.println(privateKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey)));
+		System.out.println(publicKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)));
+		String[] keys = {BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)};
+		System.out.println("private: " + BlockchainCryptography.getStringFromKey(generatedWallet.privateKey));
+		System.out.println("public: " + BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
+		return keys;
 	}
 }

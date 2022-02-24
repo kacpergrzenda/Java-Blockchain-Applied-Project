@@ -5,6 +5,7 @@
   <mat-icon aria-hidden="false" aria-label="link icon">link</mat-icon>
   <span class="toolbar-button-spacer"></span>
   <div class="button-row">
+    <button mat-raised-button class="button-navigation" (click)="createWallet()">Wallet</button>
     <button mat-raised-button class="button-navigation" routerLink="/transactions">Create Transaction</button>
     <button mat-raised-button class="button-navigation" routerLink="/mining">Mine Transaction</button>
   </div>
@@ -12,5 +13,10 @@
 
 <div *ngFor="let block of blocks">
     <div>{{block.hash}}</div>
-  </div>
+</div>
+
+<div *ngIf="div1">
+  <div>PUBLIC: {{uw[1]}}</div>
+  <div>PRIVATE: {{uw[0]}}</div>
+</div>
 <p>home works!</p>

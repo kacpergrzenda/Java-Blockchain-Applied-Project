@@ -12,9 +12,10 @@ public class Blockchain {
 	private int difficulty = 2;
 	private int miningReward = 10;
 	private ArrayList<String> pendingTransactions = new ArrayList<String>();
+	public static ArrayList<Wallet> wallets = new ArrayList<Wallet>();
 	
-	public static Wallet walletA;
-	public static Wallet walletB;
+	//public static Wallet walletA;
+	//public static Wallet walletB;
 	
 	/* Checks if the Blockchain is valid by running a consesus by all the blocks in the chain */
 	public Boolean isChainValid() {
@@ -86,7 +87,6 @@ public class Blockchain {
 //		System.out.println("How many blocks is there: " + bc.blockchain.size());
 //		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
 //	}
-	
 //	public static void main(String[] args) {
 //		Security.addProvider(new BouncyCastleProvider()); 
 //		

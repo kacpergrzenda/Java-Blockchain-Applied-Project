@@ -1,9 +1,12 @@
 package ie.gmit.sw;
+import java.io.Serializable;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-public class Wallet {
+public class Wallet implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	public PrivateKey privateKey;
 	public PublicKey publicKey;
 	
@@ -12,6 +15,9 @@ public class Wallet {
 	}
 	
 	public void generateKeyPair() {
+		if(Security.getProvider("BC") == null) {
+		      Security.addProvider(new BouncyCastleProvider());
+		}
 		try {
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
 			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
