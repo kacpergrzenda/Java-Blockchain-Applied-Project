@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Block } from 'src/app/block';
 import { BlockchainService } from 'src/app/blockchain.service';
 import { Wallet } from 'src/app/wallet';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogWalletComponent } from 'src/app/dialogs/dialog-wallet/dialog-wallet.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,9 +13,9 @@ import { Wallet } from 'src/app/wallet';
 export class HomeComponent implements OnInit {
   public blocks!: Block[];
   public userWallet!: Wallet; 
-  public uw!: string[];
+  public userKeys!: string[];
   div1:boolean = false;
-  constructor(private blockchainService: BlockchainService){}
+  constructor(private blockchainService: BlockchainService, public dialog: MatDialog){}
 
   /* On initialise of the app run this */
   ngOnInit(): void {
@@ -32,15 +34,11 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  public createWallet(): void {
-    this.blockchainService.createWallet().subscribe(
-      (response: string[]) => {
-        this.uw = response;
-        this.div1 = true;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+  
+
+
+  /*  Dialog */
+  openDialogWallet() {
+    this.dialog.open(DialogWalletComponent, {data:{userKeys: "this.userKeys"}});
   }
 }

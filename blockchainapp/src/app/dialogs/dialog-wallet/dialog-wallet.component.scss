@@ -1,0 +1,43 @@
+/* Dialog CSS */
+.dialogWallet{
+    max-height: 515px;
+    min-height: 515px;
+    max-width: 450px;
+    min-width: 450px;
+}
+
+.dialog-title{
+    text-align: center;
+}
+
+.dialog-content{
+    padding: 7px;
+    margin-left: 7px;
+    margin-right: 7px;
+    max-height: 400px;
+    min-height: 400px;
+}
+
+.dialog-content-box{
+    overflow: hidden; /* Hide scrollbars */
+    padding: 17px;
+}
+
+.dialog-content-text{
+    overflow: hidden; /* Hide scrollbars */
+    display: inline-block;
+    padding: 15px;
+    font-weight: bold;
+    max-width: 317px;
+}
+
+.dialog-content-button{
+    overflow: hidden; /* Hide scrollbars */
+    display: inline-block;
+    color: black;
+    padding-bottom: 13px;
+}
+
+.dialog-actions{
+    align-content: center;
+}

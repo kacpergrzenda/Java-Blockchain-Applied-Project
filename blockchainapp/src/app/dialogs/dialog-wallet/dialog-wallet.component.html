@@ -1,0 +1,39 @@
+<div class="dialogWallet">
+    <h2 mat-dialog-title class="dialog-title">
+        Wallet Information
+        <button mat-icon-button
+        matTooltip="SAVE WALLET KEYS, ONCE LOST THEYRE ARE NOT ABLE TO BE RETRIEVED!"
+        aria-label="Display Icon">
+            <mat-icon>error_outline</mat-icon>
+        </button>
+    </h2>
+    <mat-dialog-content class="dialog-content" >
+        <div *ngIf="walletInformationDiv"> 
+            <div class="dialog-content-box">           
+                <div class="dialog-content-text">Public Key: {{publicKey}}</div>   
+                <div class="dialog-content-button"> 
+                    <button mat-icon-button [cdkCopyToClipboard]="publicKey">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>   
+                </div>      
+            </div>
+            <br>
+            <div class="dialog-content-box">
+                <div class="dialog-content-text">Private Key: {{privateKey}}</div> 
+                <div class="dialog-content-button"> 
+                    <button mat-icon-button [cdkCopyToClipboard]="privateKey">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>   
+                </div>      
+            </div>
+            <br>
+            <div class="dialog-content-box">
+                <h4 class="dialog-content-text">Balance:</h4> 
+            </div>      
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="dialog-actions">
+        <button mat-stroked-button mat-dialog-close>Close</button>
+        <button mat-stroked-button (click)="createWallet()">Connect</button>
+    </mat-dialog-actions>
+</div>
