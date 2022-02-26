@@ -21,6 +21,7 @@ public class BlockchainService {
 	private final Blockchain bc = new Blockchain(); /* Create a instance of the Blockchain from Blockchain class */
 	private HashMap<String, PrivateKey> privateKeyMap = new HashMap<String, PrivateKey>();
 	private HashMap<String, PublicKey> publicKeyMap = new HashMap<String, PublicKey>();
+	private HashMap<String, String> publicKeyByPrivate = new HashMap<String, String>();
 	
 	@Autowired
 	public BlockchainService(BlockchainRepo br) {
@@ -46,13 +47,20 @@ public class BlockchainService {
 		Wallet generatedWallet = new Wallet();
 		privateKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), generatedWallet.privateKey);
 		publicKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey), generatedWallet.publicKey);
-
+		publicKeyByPrivate.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
 		/* Test */
 		System.out.println(privateKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey)));
 		System.out.println(publicKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)));
 		String[] keys = {BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)};
 		System.out.println("private: " + BlockchainCryptography.getStringFromKey(generatedWallet.privateKey));
 		System.out.println("public: " + BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
+		System.out.println(publicKeyMap);
+		return keys;
+	}
+	
+	public String[] getWallet(String pk) {
+		String[] keys = {pk,publicKeyByPrivate.get(pk)};
+		
 		return keys;
 	}
 }

@@ -1,11 +1,11 @@
 package ie.gmit.blockchainmanager.controller;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ie.gmit.blockchainmanager.service.BlockchainService;
 import ie.gmit.sw.Block;
-import ie.gmit.sw.Blockchain;
-import ie.gmit.sw.Wallet;
 
 @RestController
 @RequestMapping("/blockchain")
@@ -48,4 +46,9 @@ public class BlockchainController {
 		return new ResponseEntity<>(bs.genrateWallet(), HttpStatus.OK);
 	}
 
+	@GetMapping("/getWallet/{pk}")
+	public ResponseEntity<String[]> getWallet(@PathVariable("pk") String pk) {
+		System.out.println(pk);
+		return new ResponseEntity<>(bs.getWallet(pk), HttpStatus.OK);
+	}
 }

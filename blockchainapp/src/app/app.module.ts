@@ -16,13 +16,17 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogWalletComponent } from './dialogs/dialog-wallet/dialog-wallet.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { DialogWalletConnectComponent } from './dialogs/dialog-wallet-connect/dialog-wallet-connect.component';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     TransactionsComponent,
     HomeComponent,
     MiningComponent,
-    DialogWalletComponent
+    DialogWalletComponent,
+    DialogWalletConnectComponent
   ],
   entryComponents: [DialogWalletComponent],
   imports: [
@@ -35,7 +39,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatIconModule,
     MatDialogModule,
     MatTooltipModule,
-    ClipboardModule
+    ClipboardModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [BlockchainService],
   bootstrap: [AppComponent]

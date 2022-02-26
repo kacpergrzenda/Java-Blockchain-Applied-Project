@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockchainService } from 'src/app/blockchain.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogWalletConnectComponent } from '../dialog-wallet-connect/dialog-wallet-connect.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-wallet',
@@ -15,12 +17,14 @@ export class DialogWalletComponent implements OnInit {
   publicKey: any;
   walletInformationDiv:boolean = false;
 
-  constructor(private blockchainService: BlockchainService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private blockchainService: BlockchainService, 
+              @Inject(MAT_DIALOG_DATA) public data: any, 
+              public dialog: MatDialog
+              ) { }
 
   ngOnInit(): void {
     this.checkIfWalletExists();
   }
-
 
   public createWallet(): void {
     this.blockchainService.createWallet().subscribe(
@@ -48,5 +52,10 @@ export class DialogWalletComponent implements OnInit {
     else{
       this.walletInformationDiv = true;
     }
+  }
+
+  /*  Dialog */
+  openDialogWalletConnect() {
+    this.dialog.open(DialogWalletConnectComponent);
   }
 }

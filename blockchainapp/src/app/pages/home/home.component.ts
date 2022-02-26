@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   /* On initialise of the app run this */
   ngOnInit(): void {
-      this.getBlockchain();
+      //this.getBlockchain();
       //this.createWallet();
   }
 

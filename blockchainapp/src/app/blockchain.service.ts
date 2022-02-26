@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Block } from './block';
 import { environment } from 'src/environments/environment';
@@ -25,5 +25,10 @@ export class BlockchainService {
   /*Generate a wallet*/
   public createWallet(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiServerUrl}/blockchain/createWallet`);
+  }
+
+  /*Recover Wallet with Private Key */
+  public getWallet(pk: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiServerUrl}/blockchain/getWallet/${pk}`);
   }
 }
