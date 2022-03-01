@@ -2,10 +2,12 @@ package ie.gmit.sw;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import ie.gmit.sw.transaction.Transaction;
+import ie.gmit.sw.transaction.TransactionOutput;
 //import org.bouncycastle.jce.provider.BouncyCastleProvider;
 //import com.google.gson.GsonBuilder;
 public class Blockchain {
@@ -15,6 +17,7 @@ public class Blockchain {
 	private int miningReward = 10;
 	private ArrayList<String> pendingTransactions = new ArrayList<String>();
 	public static ArrayList<Wallet> wallets = new ArrayList<Wallet>();
+	public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions.
 	
 	public static Wallet walletA;
 	public static Wallet walletB;
@@ -99,7 +102,7 @@ public class Blockchain {
 		System.out.println(BlockchainCryptography.getStringFromKey(walletA.privateKey));
 		System.out.println(BlockchainCryptography.getStringFromKey(walletA.publicKey));
 		
-		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5);
+		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
 		transaction.generateSignature(walletA.privateKey);
 		//Verify the signature works and verify it from the public key
 		System.out.println("Is signature verified");
