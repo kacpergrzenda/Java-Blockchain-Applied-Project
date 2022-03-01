@@ -1,7 +1,9 @@
-package ie.gmit.sw;
+package ie.gmit.sw.transaction;
 import java.security.*;
 import java.util.ArrayList;
 import java.util.Base64;
+
+import ie.gmit.sw.BlockchainCryptography;
 
 public class Transaction {
 
