@@ -1,7 +1,6 @@
 package ie.gmit.sw.transaction;
 import java.security.*;
 import java.util.ArrayList;
-import java.util.Base64;
 
 import ie.gmit.sw.Blockchain;
 import ie.gmit.sw.BlockchainCryptography;
@@ -11,7 +10,7 @@ public class Transaction {
 	public String transactionId;
 	public PublicKey sender; // senders address/public key.
 	public PublicKey reciepient; // Recipients address/public key.
-	public int amount;
+	public float amount;
 	public byte[] signature; // Prove the owner of sending wallet is authentic
 
 	// To prove receivers and senders current balance;
@@ -20,7 +19,7 @@ public class Transaction {
 
 	private int hashChanger = 0;
 
-	public Transaction(PublicKey from, PublicKey to, int amount, ArrayList<TransactionInput> inputs) {
+	public Transaction(PublicKey from, PublicKey to, float amount, ArrayList<TransactionInput> inputs) {
 		this.sender = from;
 		this.reciepient = to;
 		this.amount = amount;
@@ -31,7 +30,7 @@ public class Transaction {
 	// This Calculates the transaction hash (which will be used as its Id)
 	private String calculateTransactionHash() {
 		hashChanger++; //increase the sequence to avoid 2 identical transactions having the same hash
-		String convertToHash = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Integer.toString(amount) + hashChanger;
+		String convertToHash = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount) + hashChanger;
 		return BlockchainCryptography.convertToHash(convertToHash);
 	}
 	
@@ -47,7 +46,7 @@ public class Transaction {
 		return BlockchainCryptography.verifySignature(sender, data, signature);
 	}
 	
-	/* Gets transaction got amount */
+	/* returns sum of inputs(UTXOs) values */
 	public float getInputsValue() {
 		float total = 0;
 		for(TransactionInput i : inputs) {
