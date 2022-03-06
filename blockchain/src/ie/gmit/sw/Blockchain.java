@@ -32,7 +32,7 @@ public class Blockchain {
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
 			//compare registered hash and calculated hash:
-			if(!currentBlock.getHash().equals(currentBlock.calculateHash(currentBlock.getIndex(), currentBlock.getPreviousHash(), currentBlock.getTimestamp(), currentBlock.getTransactionData())) ){
+			if(!currentBlock.getHash().equals(currentBlock.calculateHash()) ){
 				System.out.println("Current Hashes not equal: " + currentBlock.getHash());			
 				return false;
 			}
@@ -76,7 +76,7 @@ public class Blockchain {
 	
 	public void createGenesisBlock() {
 		this.pendingTransactions.add("The Times Jan/03/2009 Chancellor on brink of second bailout for banks.");
-		Block b = new Block(blockchain.size(), this.pendingTransactions, "0");
+		Block b = new Block(blockchain.size(), this.pendingTransactions, "0"); 
 		b.mineBlock(this.difficulty);
 		this.pendingTransactions.clear();
 		blockchain.add(b);
@@ -92,21 +92,21 @@ public class Blockchain {
 //		System.out.println("How many blocks is there: " + bc.blockchain.size());
 //		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
 //	}
-	public static void main(String[] args) {
-		Security.addProvider(new BouncyCastleProvider()); 
-		
-		walletA = new Wallet();
-		walletB = new Wallet();
-		
-		System.out.println("Private and public keys:");
-		System.out.println(BlockchainCryptography.getStringFromKey(walletA.privateKey));
-		System.out.println(BlockchainCryptography.getStringFromKey(walletA.publicKey));
-		
-		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
-		transaction.generateSignature(walletA.privateKey);
-		//Verify the signature works and verify it from the public key
-		System.out.println("Is signature verified");
-		System.out.println(transaction.verifiySignature());
-	}
+//	public static void main(String[] args) {
+//		Security.addProvider(new BouncyCastleProvider()); 
+//		
+//		walletA = new Wallet();
+//		walletB = new Wallet();
+//		
+//		System.out.println("Private and public keys:");
+//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.privateKey));
+//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.publicKey));
+//		
+//		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+//		transaction.generateSignature(walletA.privateKey);
+//		//Verify the signature works and verify it from the public key
+//		System.out.println("Is signature verified");
+//		System.out.println(transaction.verifiySignature());
+//	}
 	
 }
