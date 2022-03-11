@@ -10,7 +10,6 @@ import ie.gmit.sw.transaction.Transaction;
 public class Block {
 	private int index;
 	private String timestamp;
-	private ArrayList<String> transactionData = new ArrayList<String>();
 	public String merkleRoot;
 	public ArrayList<Transaction> transactions = new ArrayList<Transaction>(); //our data will be a simple message.
 	private String previousHash;
@@ -20,10 +19,9 @@ public class Block {
 	private Date date = new Date();  
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");  
 
-	public Block(int index, ArrayList<String> transactionData, String previousHash) {
+	public Block(int index, String previousHash) {
 		this.index = index;
 		this.timestamp = dateFormatter.format(date);
-		//this.transactionData.addAll(transactionData);
 		this.previousHash = previousHash;
 		this.nonce = 0;
 		this.hash = calculateHash();
@@ -39,10 +37,6 @@ public class Block {
 
 	public String getTimestamp() {
 		return timestamp;
-	}
-
-	public ArrayList<String> getTransactionData() {
-		return transactionData;
 	}
 
 	public String getHash() {

@@ -45,6 +45,7 @@ public class BlockchainService {
 	
 	public String[] genrateWallet() {
 		Wallet generatedWallet = new Wallet();
+		bc.wallets.add(generatedWallet);
 		privateKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), generatedWallet.privateKey);
 		publicKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey), generatedWallet.publicKey);
 		publicKeyByPrivate.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
