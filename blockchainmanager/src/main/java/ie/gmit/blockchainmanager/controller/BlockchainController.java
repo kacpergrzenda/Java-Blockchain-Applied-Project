@@ -46,8 +46,8 @@ public class BlockchainController {
 		return new ResponseEntity<>(bs.genrateWallet(), HttpStatus.OK);
 	}
 
-	@GetMapping("/getWallet/{pk}")
-	public ResponseEntity<String[]> getWallet(@PathVariable("pk") String pk) {
+	@PostMapping("/getWallet")
+	public ResponseEntity<String[]> getWallet(@RequestBody String pk) {
 		System.out.println(pk);
 		return new ResponseEntity<>(bs.getWallet(pk), HttpStatus.OK);
 	}

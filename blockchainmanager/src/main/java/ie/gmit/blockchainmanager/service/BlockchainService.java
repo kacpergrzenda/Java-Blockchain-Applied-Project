@@ -22,6 +22,7 @@ public class BlockchainService {
 	private HashMap<String, PrivateKey> privateKeyMap = new HashMap<String, PrivateKey>();
 	private HashMap<String, PublicKey> publicKeyMap = new HashMap<String, PublicKey>();
 	private HashMap<String, String> publicKeyByPrivate = new HashMap<String, String>();
+	private HashMap<String, Wallet> walletByPrivate = new HashMap<String, Wallet>();
 	
 	@Autowired
 	public BlockchainService(BlockchainRepo br) {
@@ -30,11 +31,11 @@ public class BlockchainService {
 	}
 	
 	
-	public Block addBlock(String newTransactionData) {	
-		Block b = bc.addBlock(newTransactionData);
+	public Block addBlock(String publicKey) {	
+		Block b = bc.addBlock(bc.currentBlock ,publicKeyMap.get(publicKey));
 		//System.out.println("Service:" + bc.blockchain);
-		BlockManager bm = new BlockManager( b.getTimestamp() , b.getTransactionData(), b.getPreviousHash(), b.getHash(), 0); // creates a copy of the existing block 
-		br.save(bm); // saves a block into the mysql database
+		//BlockManager bm = new BlockManager( b.getTimestamp() , b.getTransactionData(), b.getPreviousHash(), b.getHash(), 0); // creates a copy of the existing block 
+		//br.save(bm); // saves a block into the mysql database
 		System.out.println(bc.blockchain);
 		return b;
 	}
@@ -46,13 +47,14 @@ public class BlockchainService {
 	public String[] genrateWallet() {
 		Wallet generatedWallet = new Wallet();
 		bc.wallets.add(generatedWallet);
+		walletByPrivate.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), generatedWallet);
 		privateKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), generatedWallet.privateKey);
 		publicKeyMap.put(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey), generatedWallet.publicKey);
 		publicKeyByPrivate.put(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
 		/* Test */
 		System.out.println(privateKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey)));
 		System.out.println(publicKeyMap.get(BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)));
-		String[] keys = {BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey)};
+		String[] keys = {BlockchainCryptography.getStringFromKey(generatedWallet.privateKey), BlockchainCryptography.getStringFromKey(generatedWallet.publicKey), String.valueOf(walletByPrivate.get(BlockchainCryptography.getStringFromKey(generatedWallet.privateKey)).getBalance())};
 		System.out.println("private: " + BlockchainCryptography.getStringFromKey(generatedWallet.privateKey));
 		System.out.println("public: " + BlockchainCryptography.getStringFromKey(generatedWallet.publicKey));
 		System.out.println(publicKeyMap);
@@ -60,8 +62,10 @@ public class BlockchainService {
 	}
 	
 	public String[] getWallet(String pk) {
-		String[] keys = {pk,publicKeyByPrivate.get(pk)};
+		walletByPrivate.get(pk);
+		String[] walletInformation = {pk,publicKeyByPrivate.get(pk), String.valueOf(walletByPrivate.get(pk).getBalance())};
 		
-		return keys;
+		System.out.println(walletByPrivate.get(pk).getBalance());
+		return walletInformation;
 	}
 }
