@@ -15,6 +15,7 @@ export class DialogWalletComponent implements OnInit {
   public userKeys!: string[];
   privateKey: any;
   publicKey: any;
+  balance: any;
   walletInformationDiv:boolean = false;
 
   constructor(private blockchainService: BlockchainService, 
@@ -33,8 +34,10 @@ export class DialogWalletComponent implements OnInit {
         /* Set keys to LocalStorage */
         localStorage.setItem("privatekey", this.userKeys[0]);
         localStorage.setItem("publickey", this.userKeys[1]);
+        localStorage.setItem("balance", this.userKeys[2]);
         this.privateKey = localStorage.getItem("privatekey");
         this.publicKey = localStorage.getItem("publickey");
+        this.balance = localStorage.getItem("balance");
         this.walletInformationDiv = true;
       },
       (error: HttpErrorResponse) => {

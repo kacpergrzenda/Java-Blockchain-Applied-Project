@@ -10,6 +10,7 @@ export class MiningComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //Check if there is any blocks that need to be mined
   }
 
 }

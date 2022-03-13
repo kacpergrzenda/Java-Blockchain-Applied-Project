@@ -29,6 +29,6 @@ export class BlockchainService {
 
   /*Recover Wallet with Private Key */
   public getWallet(pk: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiServerUrl}/blockchain/getWallet/${pk}`);
+    return this.http.post<string[]>(`${this.apiServerUrl}/blockchain/getWallet/`, pk);
   }
 }
