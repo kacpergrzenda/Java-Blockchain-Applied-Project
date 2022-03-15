@@ -1,8 +1,7 @@
 export interface Block {
-    id: number;
-    hash: string;
-    nonce: number;
-    previousHash: string;
+    id: number; 
     timestamp: string;
-    transactionData: any;
+    previousHash: string;
+    nonce: number;
+    hash: string;
 }

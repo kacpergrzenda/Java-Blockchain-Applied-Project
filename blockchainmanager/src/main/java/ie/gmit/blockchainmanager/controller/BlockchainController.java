@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ie.gmit.blockchainmanager.model.TransactionManager;
 import ie.gmit.blockchainmanager.service.BlockchainService;
 import ie.gmit.sw.Block;
 
@@ -50,5 +51,11 @@ public class BlockchainController {
 	public ResponseEntity<String[]> getWallet(@RequestBody String pk) {
 		System.out.println(pk);
 		return new ResponseEntity<>(bs.getWallet(pk), HttpStatus.OK);
+	}
+	
+	@GetMapping("/transactionList")
+	public ResponseEntity<ArrayList<TransactionManager>> getTransactionsToBeMined() {
+		//bs.genrateWallet();
+		return new ResponseEntity<>(bs.checkBlockchain(), HttpStatus.OK);
 	}
 }

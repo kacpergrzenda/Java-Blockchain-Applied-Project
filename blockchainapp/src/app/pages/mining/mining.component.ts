@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BlockchainService } from 'src/app/blockchain.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Transaction } from 'src/app/transaction';
 
 @Component({
   selector: 'app-mining',
@@ -7,10 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MiningComponent implements OnInit {
 
-  constructor() { }
+  allTransactions!: Transaction[]
+  firstT!: Transaction
+  constructor(private blockchainService: BlockchainService) { }
 
   ngOnInit(): void {
     //Check if there is any blocks that need to be mined
+    this.getAllTransactions();
   }
-
+  public getAllTransactions(): void {
+    this.blockchainService.getAllTransactions().subscribe(
+      (response: Transaction[]) => {
+        this.allTransactions = response
+        this.firstT = this.allTransactions[0]
+        console.log(this.allTransactions);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 }

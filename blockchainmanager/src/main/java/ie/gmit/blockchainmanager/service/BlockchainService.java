@@ -4,16 +4,19 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ie.gmit.blockchainmanager.model.BlockManager;
+import ie.gmit.blockchainmanager.model.TransactionManager;
 import ie.gmit.blockchainmanager.repo.BlockchainRepo;
 import ie.gmit.sw.Block;
 import ie.gmit.sw.Blockchain;
 import ie.gmit.sw.BlockchainCryptography;
 import ie.gmit.sw.Wallet;
+import ie.gmit.sw.transaction.Transaction;
 
 @Service
 public class BlockchainService {
@@ -67,5 +70,19 @@ public class BlockchainService {
 		
 		System.out.println(walletByPrivate.get(pk).getBalance());
 		return walletInformation;
+	}
+	
+	public ArrayList<TransactionManager> checkBlockchain() {
+		ArrayList<TransactionManager> allTransactions = new ArrayList<TransactionManager>();
+		if(bc.blockchain.size() <= 0) {
+			bc.createGenesisBlock();
+		}
+
+		for (Transaction t : bc.currentBlock.transactions) {
+			TransactionManager tm = new TransactionManager(t.transactionId, BlockchainCryptography.getStringFromKey(t.sender), BlockchainCryptography.getStringFromKey(t.reciepient), t.amount);
+			allTransactions.add(tm);
+		}
+
+		return allTransactions;
 	}
 }

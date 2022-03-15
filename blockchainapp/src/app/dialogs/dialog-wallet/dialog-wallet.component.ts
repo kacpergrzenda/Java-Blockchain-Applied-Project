@@ -49,6 +49,7 @@ export class DialogWalletComponent implements OnInit {
   public checkIfWalletExists(): void {
     this.privateKey = localStorage.getItem("privatekey");
     this.publicKey = localStorage.getItem("publickey");
+    this.balance = localStorage.getItem("balance");
     if (this.privateKey == null || this.publicKey == null) {
       this.walletInformationDiv = false;
     }

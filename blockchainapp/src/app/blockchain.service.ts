@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Block } from './block';
 import { environment } from 'src/environments/environment';
 import { Wallet } from './wallet';
+import { Transaction } from './transaction';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,5 +31,9 @@ export class BlockchainService {
   /*Recover Wallet with Private Key */
   public getWallet(pk: string): Observable<string[]> {
     return this.http.post<string[]>(`${this.apiServerUrl}/blockchain/getWallet/`, pk);
+  }
+
+  public getAllTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiServerUrl}/blockchain/transactionList`);
   }
 }
