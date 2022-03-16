@@ -12,6 +12,9 @@ export class MiningComponent implements OnInit {
 
   allTransactions!: Transaction[]
   firstT!: Transaction
+  privateKey: any;
+  publicKey: any;
+
   constructor(private blockchainService: BlockchainService) { }
 
   ngOnInit(): void {
@@ -24,6 +27,21 @@ export class MiningComponent implements OnInit {
         this.allTransactions = response
         this.firstT = this.allTransactions[0]
         console.log(this.allTransactions);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+ 
+
+  public mineBlock() {
+    this.privateKey = localStorage.getItem("privatekey");
+    this.publicKey = localStorage.getItem("publickey");
+    this.blockchainService.mineBlock(this.publicKey).subscribe(
+      (response: any) => {
+        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

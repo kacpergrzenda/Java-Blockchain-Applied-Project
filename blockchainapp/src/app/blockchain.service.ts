@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders  } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Block } from './block';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,14 @@ export class BlockchainService {
   private apiServerUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      "Access-Control-Allow-Origin": "*",
+      
+    } ),responseType: 'text' as 'json'
+  };
 
   /* Gets Blocks from Blockchain*/
   public getBlockchain(): Observable<Block[]> {
@@ -35,5 +43,10 @@ export class BlockchainService {
 
   public getAllTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.apiServerUrl}/blockchain/transactionList`);
+  }
+
+  /* Mine Block */
+  public mineBlock(pk: string): Observable<string>{
+    return this.http.post<string>(`${this.apiServerUrl}/blockchain/mineBlock/`, pk, this.httpOptions);
   }
 }

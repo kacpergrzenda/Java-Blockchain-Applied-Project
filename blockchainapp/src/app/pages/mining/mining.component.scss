@@ -1,11 +1,54 @@
 // ToolBar
 .toolbar-button-spacer {
-    flex: 1 1 auto;
-  }
-  .button-navigation {
-    margin-right: 12px;
-  }
-  .logo-button {
-    text-decoration:none;
-    color: black;
-  }
+  flex: 1 1 auto;
+}
+.button-navigation {
+  margin-right: 12px;
+}
+.logo-button {
+  text-decoration:none;
+  color: black;
+}
+
+// All Transactions Card
+
+.all-transactions-card {
+  margin: 10px;
+  width: 1200px;
+  margin-left: 20%;
+  background-color: whitesmoke;
+  align-content: center;
+}
+
+.all-transactions-card-title {
+  margin-left: 14.5em;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.all-transactions-card-actions-button {
+  margin-left:46.5%;
+  margin-right:45%;
+}
+
+// Transaction Card
+
+.transaction-card {
+  width: 1000px;
+  margin-left: 100px;
+  padding: 15px;
+}
+
+.transaction-card-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.transaction-card-content {
+  text-align: center;
+}
+
+
+.bold-text {
+  font-weight: bold;
+}

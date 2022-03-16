@@ -58,4 +58,9 @@ public class BlockchainController {
 		//bs.genrateWallet();
 		return new ResponseEntity<>(bs.checkBlockchain(), HttpStatus.OK);
 	}
+	
+	@PostMapping("/mineBlock")
+	public ResponseEntity<String> mineBlock(@RequestBody String pk) {
+		return new ResponseEntity<>(bs.mineBlock(pk), HttpStatus.OK);
+	}
 }

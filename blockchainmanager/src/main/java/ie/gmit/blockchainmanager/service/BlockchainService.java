@@ -85,4 +85,18 @@ public class BlockchainService {
 
 		return allTransactions;
 	}
+	
+	public String mineBlock(String pk) {
+		int tempSize = bc.blockchain.size();
+		bc.addBlock(bc.currentBlock, publicKeyMap.get(pk));
+		if(tempSize < bc.blockchain.size()) {
+			
+			String s = "Block Mined";
+			return s;
+		}
+		else{
+			String s = "Block Failed To Mine";
+			return s;
+		}
+	}
 }

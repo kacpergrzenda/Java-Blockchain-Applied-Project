@@ -8,9 +8,31 @@
       <button mat-raised-button class="button-navigation" routerLink="/transactions">Create Transaction</button>
       <button mat-raised-button class="button-navigation" routerLink="/mining">Mine Transaction</button>
     </div>
-  </mat-toolbar>
-<p>mining works! </p>
-<p>{{firstT.transactionId}} </p>
-<p>{{firstT.sender}} </p>
-<p>{{firstT.reciepient}} </p>
-<p>{{firstT.amount}} </p>
+</mat-toolbar>
+<div >
+  <!-- ALL TRANSACTION -->
+  <mat-card class="all-transactions-card">
+    <mat-card-header class="all-transactions-card-header">
+      <mat-card-title class="all-transactions-card-title"> BLOCK TRANSACTIONS </mat-card-title>
+    </mat-card-header>
+
+    <!-- TRANSACTION CARD -->
+    <mat-card *ngFor="let transaction of allTransactions;" class="transaction-card">
+      <mat-card-header class="transaction-card-header">
+        <mat-card-title class="transaction-card-title"> TRANSACTION ID: {{transaction.transactionId}} </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="transaction-card-content">
+        <a class="bold-text">SENDER:</a> {{transaction.sender}}
+        <mat-divider inset></mat-divider>
+        <a class="bold-text">RECEIEPIENT:</a> {{transaction.reciepient}}
+        <mat-divider inset></mat-divider>
+        <a class="bold-text">AMOUNT:</a> {{firstT.amount}}
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card-actions class="all-transactions-card-actions-button">
+      <button (click)="mineBlock()" mat-raised-button>MINE BLOCK</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

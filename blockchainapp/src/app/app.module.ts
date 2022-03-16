@@ -19,6 +19,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import { DialogWalletConnectComponent } from './dialogs/dialog-wallet-connect/dialog-wallet-connect.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,9 @@ import { FormsModule } from '@angular/forms';
     MatTooltipModule,
     ClipboardModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [BlockchainService],
   bootstrap: [AppComponent]
