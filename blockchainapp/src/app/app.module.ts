@@ -21,6 +21,8 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import {MatDividerModule} from '@angular/material/divider';
     MatInputModule,
     FormsModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [BlockchainService],
   bootstrap: [AppComponent]

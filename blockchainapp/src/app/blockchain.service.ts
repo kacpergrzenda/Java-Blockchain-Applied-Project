@@ -26,11 +26,6 @@ export class BlockchainService {
     return this.http.get<Block[]>(`${this.apiServerUrl}/blockchain/all`);
   }
 
-  /*  Create a new block by sending it transaction data*/
-  public addBlock(transaction: string): Observable<string> {
-    return this.http.post<string>(`${this.apiServerUrl}/blockchain/add`, transaction);
-  }
-
   /*Generate a wallet*/
   public createWallet(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiServerUrl}/blockchain/createWallet`);
@@ -46,6 +41,7 @@ export class BlockchainService {
     return this.http.post<string[]>(`${this.apiServerUrl}/blockchain/getWallet/`, pk);
   }
 
+  /* Get all Transactions from current Block */
   public getAllTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(`${this.apiServerUrl}/blockchain/transactionList`);
   }
@@ -53,5 +49,9 @@ export class BlockchainService {
   /* Mine Block */
   public mineBlock(pk: string): Observable<string>{
     return this.http.post<string>(`${this.apiServerUrl}/blockchain/mineBlock/`, pk, this.httpOptions);
+  }
+
+  public createTransaction(sender: string, reciepient: string, amount: string): Observable<string>{
+    return this.http.post<string>(`${this.apiServerUrl}/blockchain/createTransaction/`, {transactionId: 0,sender, reciepient, amount}, this.httpOptions);
   }
 }

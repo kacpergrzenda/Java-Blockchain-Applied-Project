@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ie.gmit.blockchainmanager.model.TransactionManager;
@@ -29,17 +30,6 @@ public class BlockchainController {
 	public ResponseEntity<ArrayList<Block>> getAllBlocks() {
 		return new ResponseEntity<>(bs.getAllBlocks(), HttpStatus.OK);
 	}
-	
-	/* When creating a new block all you pass is the transaction data because the blockchain creates and knows the rest */
-	@PostMapping("/add")
-	public ResponseEntity<Block> addBlock(@RequestBody String s) {
-		return new ResponseEntity<>(bs.addBlock(s), HttpStatus.CREATED);
-	}
-	
-//	@PostMapping("/addTransaction")
-//	public ResponseEntity<String> addTransaction(@RequestBody String s) {
-//		return new ResponseEntity<>("", HttpStatus.CREATED);
-//	}
 	
 	@GetMapping("/createWallet")
 	public ResponseEntity<String[]> addWallet() {
@@ -67,5 +57,10 @@ public class BlockchainController {
 	@PostMapping("/mineBlock")
 	public ResponseEntity<String> mineBlock(@RequestBody String pk) {
 		return new ResponseEntity<>(bs.mineBlock(pk), HttpStatus.OK);
+	}
+	
+	@PostMapping("/createTransaction")
+	public ResponseEntity<String> createTransaction(@RequestBody TransactionManager tm) {
+		return new ResponseEntity<>(bs.createTransaction(tm.sender, tm.reciepient, tm.amount), HttpStatus.OK);
 	}
 }

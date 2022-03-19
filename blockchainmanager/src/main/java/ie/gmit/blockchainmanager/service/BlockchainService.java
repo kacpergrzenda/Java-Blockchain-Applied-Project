@@ -104,7 +104,16 @@ public class BlockchainService {
 		}
 	}
 	
-	
+	public String createTransaction(String senderPrivateKey, String receiverPublicKey, float amount) {
+		Boolean transactionStatus = bc.currentBlock.addTransaction(walletByPrivate.get(senderPrivateKey).sendFunds(publicKeyMap.get(receiverPublicKey), amount));
+		if(transactionStatus) {
+			return "Transaction Completed and Successfully added to Block.";
+		}
+		else {
+			return "Transaction Failed";
+		}
+		
+	}
 
 
 	

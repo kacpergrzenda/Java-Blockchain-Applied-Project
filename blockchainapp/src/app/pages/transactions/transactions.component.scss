@@ -9,3 +9,31 @@
     text-decoration:none;
     color: black;
   }
+
+
+
+  .create-transaction-card {
+    margin: 10px;
+    width: 1200px;
+    margin-left: 20%;
+    background-color: whitesmoke;
+    align-content: center;
+  }
+
+  .create-transaction-card-title {
+    margin-left: 14.5em;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 20px;
+  }
+
+  .create-transaction-card-content {
+    text-align: center;
+  }
+
+  .mat-form-field {
+    padding: 30px;
+    width: 500px;
+    text-align: center;
+    font-weight: bold;
+  }

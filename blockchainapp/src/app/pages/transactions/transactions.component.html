@@ -9,4 +9,59 @@
       <button mat-raised-button class="button-navigation" routerLink="/mining">Mine Transaction</button>
     </div>
   </mat-toolbar>
-<p>transactions works!</p>
+<div>
+  <mat-card class="create-transaction-card">
+
+    <mat-card-header class="create-transaction-card-header">
+      <mat-card-title class="create-transaction-card-title">
+        CREATE TRANSACTION
+      </mat-card-title>
+    </mat-card-header>
+
+    
+    <mat-card-content class="create-transaction-card-content">
+      <form [formGroup]="transactionForm" *ngIf="transactionForm">
+
+        <div>
+          <mat-form-field class="mat-form-field">
+            <mat-label>Sender PrivateKey</mat-label>
+            <input matInput type="text" [formControl]="senderControl"/>
+            <mat-error *ngIf="senderControl.invalid">
+              Sender PrivateKey Invalid
+          </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="mat-form-field">
+            <mat-label>Receiver PublicKey</mat-label>
+            <input matInput type="text" [formControl]="receiverControl"/>
+            <mat-error *ngIf="receiverControl.invalid">
+              Sender PublicKey Invalid
+          </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="mat-form-field">
+            <mat-label>Amount</mat-label>
+            <input matInput type="text" [formControl]="amountControl"/>
+            <mat-error *ngIf="amountControl.invalid">
+              Amount Invalid
+          </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-raised-button type="submit" [disabled]="!transactionForm.valid" (click)="onTransaction()">
+            Create
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+
+
+  </mat-card>
+</div>
