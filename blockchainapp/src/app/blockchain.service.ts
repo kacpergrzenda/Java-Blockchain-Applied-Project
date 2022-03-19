@@ -36,6 +36,11 @@ export class BlockchainService {
     return this.http.get<string[]>(`${this.apiServerUrl}/blockchain/createWallet`);
   }
 
+  /*Get Wallet Balance */
+  public getBalance(pk: string): Observable<number > {
+    return this.http.post<number>(`${this.apiServerUrl}/blockchain/getBalance`, pk);
+  }
+
   /*Recover Wallet with Private Key */
   public getWallet(pk: string): Observable<string[]> {
     return this.http.post<string[]>(`${this.apiServerUrl}/blockchain/getWallet/`, pk);

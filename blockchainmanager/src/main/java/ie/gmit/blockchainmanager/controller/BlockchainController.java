@@ -53,10 +53,15 @@ public class BlockchainController {
 		return new ResponseEntity<>(bs.getWallet(pk), HttpStatus.OK);
 	}
 	
+	@PostMapping("/getBalance")
+	public ResponseEntity<Float> getBalance(@RequestBody String pk) {
+		return new ResponseEntity<>(bs.getBalance(pk), HttpStatus.OK);
+	}
+	
 	@GetMapping("/transactionList")
 	public ResponseEntity<ArrayList<TransactionManager>> getTransactionsToBeMined() {
 		//bs.genrateWallet();
-		return new ResponseEntity<>(bs.checkBlockchain(), HttpStatus.OK);
+		return new ResponseEntity<>(bs.checkCurrentBlockTransactions(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/mineBlock")

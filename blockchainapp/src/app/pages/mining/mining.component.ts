@@ -42,6 +42,7 @@ export class MiningComponent implements OnInit {
     this.blockchainService.mineBlock(this.publicKey).subscribe(
       (response: any) => {
         console.log(response);
+        this.getAllTransactions();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

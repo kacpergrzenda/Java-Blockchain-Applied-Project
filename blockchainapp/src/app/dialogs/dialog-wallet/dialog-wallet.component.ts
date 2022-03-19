@@ -54,6 +54,15 @@ export class DialogWalletComponent implements OnInit {
       this.walletInformationDiv = false;
     }
     else{
+      this.blockchainService.getBalance(this.privateKey).subscribe(
+        (response: number) => {
+          localStorage.setItem("balance", response.toString());
+          this.balance = localStorage.getItem("balance");
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
       this.walletInformationDiv = true;
     }
   }

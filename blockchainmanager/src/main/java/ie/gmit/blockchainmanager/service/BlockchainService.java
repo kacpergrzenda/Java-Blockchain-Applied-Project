@@ -72,7 +72,11 @@ public class BlockchainService {
 		return walletInformation;
 	}
 	
-	public ArrayList<TransactionManager> checkBlockchain() {
+	public float getBalance(String pk) {
+		return walletByPrivate.get(pk).getBalance();
+	}
+	
+	public ArrayList<TransactionManager> checkCurrentBlockTransactions() {
 		ArrayList<TransactionManager> allTransactions = new ArrayList<TransactionManager>();
 		if(bc.blockchain.size() <= 0) {
 			bc.createGenesisBlock();
@@ -99,4 +103,9 @@ public class BlockchainService {
 			return s;
 		}
 	}
+	
+	
+
+
+	
 }
