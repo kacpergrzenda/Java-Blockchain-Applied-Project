@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ie.gmit.blockchainmanager.model.BlockManager;
 import ie.gmit.blockchainmanager.model.TransactionManager;
 import ie.gmit.blockchainmanager.service.BlockchainService;
 import ie.gmit.sw.Block;
@@ -27,7 +28,7 @@ public class BlockchainController {
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<ArrayList<Block>> getAllBlocks() {
+	public ResponseEntity<ArrayList<BlockManager>> getAllBlocks() {
 		return new ResponseEntity<>(bs.getAllBlocks(), HttpStatus.OK);
 	}
 	

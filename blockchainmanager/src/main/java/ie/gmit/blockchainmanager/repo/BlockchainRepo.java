@@ -8,7 +8,4 @@ import ie.gmit.sw.Block;
 
 public interface BlockchainRepo extends JpaRepository<BlockManager, Long>{
 
-	//void save(BlockManager bm);
-
-
 }

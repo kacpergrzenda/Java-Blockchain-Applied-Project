@@ -5,6 +5,7 @@ import { BlockchainService } from 'src/app/blockchain.service';
 import { Wallet } from 'src/app/wallet';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogWalletComponent } from 'src/app/dialogs/dialog-wallet/dialog-wallet.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   /* On initialise of the app run this */
   ngOnInit(): void {
-      //this.getBlockchain();
+      this.getBlockchain();
       //this.createWallet();
   }
 
@@ -27,6 +28,12 @@ export class HomeComponent implements OnInit {
     this.blockchainService.getBlockchain().subscribe(
       (response: Block[]) => {
         this.blocks = response;
+        
+        
+        console.log(this.blocks);
+        console.log("1: " + this.blocks[1].transactions[0].transactionId)
+        console.log("2: " + this.blocks[0].transactions)
+        //console.log(response)
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

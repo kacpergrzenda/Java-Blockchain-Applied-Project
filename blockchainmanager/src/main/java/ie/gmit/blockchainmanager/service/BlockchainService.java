@@ -34,17 +34,30 @@ public class BlockchainService {
 	}
 	
 	
-	public Block addBlock(String publicKey) {	
-		Block b = bc.addBlock(bc.currentBlock ,publicKeyMap.get(publicKey));
-		//System.out.println("Service:" + bc.blockchain);
-		//BlockManager bm = new BlockManager( b.getTimestamp() , b.getTransactionData(), b.getPreviousHash(), b.getHash(), 0); // creates a copy of the existing block 
-		//br.save(bm); // saves a block into the mysql database
-		System.out.println(bc.blockchain);
-		return b;
-	}
+//	public Block addBlock(String publicKey) {	
+//		Block b = bc.addBlock(bc.currentBlock ,publicKeyMap.get(publicKey));
+//		//System.out.println("Service:" + bc.blockchain);
+//		//BlockManager bm = new BlockManager( b.getTimestamp() , b.getTransactionData(), b.getPreviousHash(), b.getHash(), 0); // creates a copy of the existing block 
+//		//br.save(bm); // saves a block into the mysql database
+//		System.out.println(bc.blockchain);
+//		return b;
+//	}
 	
-	public ArrayList<Block> getAllBlocks() {
-		return bc.blockchain;
+	public ArrayList<BlockManager> getAllBlocks() {
+		ArrayList<BlockManager> tempBm = new ArrayList<BlockManager>();
+		
+		for(Block b : bc.blockchain)
+		{
+			ArrayList<TransactionManager> tempTm = new ArrayList<TransactionManager>();
+			for(Transaction t : b.transactions)
+			{
+				TransactionManager tm = new TransactionManager(t.transactionId, BlockchainCryptography.getStringFromKey(t.sender), BlockchainCryptography.getStringFromKey(t.reciepient), t.amount);
+				tempTm.add(tm);
+			}
+			BlockManager bm = new BlockManager(b.getTimestamp(), b.getPreviousHash(), 0, b.getHash(), tempTm);
+			tempBm.add(bm);
+		}
+		return tempBm;
 	}
 	
 	public String[] genrateWallet() {
