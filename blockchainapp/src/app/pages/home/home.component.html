@@ -11,13 +11,83 @@
   </div>
 </mat-toolbar>
 
-<div *ngFor="let block of blocks">
+<!-- <div *ngFor="let block of blocks">
     <div>{{block.hash}}</div>
-</div>
+</div> -->
 
 <div *ngIf="div1">
-  <div>PUBLIC: {{userKeys[1]}}</div>
-  <div>PRIVATE: {{userKeys[0]}}</div>
+  
 </div>
 
-<p>home works!</p>
+<div>
+  <!-- Blockchain Mat-Card -->
+  <mat-card class="all-blocks-card">
+    <mat-card-header class="all-blocks-card-header">
+      <mat-card-title class="all-blocks-card-title">
+        BLOCKS
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <!-- Block-Mat-Card -->
+      <mat-list>
+        <cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport-block-mat-card">
+        <mat-card *ngFor="let block of blocks" class="block-card">
+          
+          <mat-card-header class="block-card-header">
+            <mat-card-title class="block-card-title">
+            <a class="standout-text">Block ID:</a> {{block.number}}
+            </mat-card-title>
+            <mat-card-subtitle>
+            <a class="standout-text">TIMESTAMP:</a> {{block.timestamp}}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content class="block-card-content">
+            <a class="standout-text">PREVIOUS HASH:</a> {{block.previousHash}}
+            <br>
+            <a class="standout-text">HASH:</a> {{block.hash}}
+            <br>
+            <mat-grid-list cols="1" rowHeight="200px" class="block-card-grid">
+
+              <div class="transaction-heading"> BLOCK TRANSACTIONS</div>
+              
+              <mat-grid-tile class="block-card-tile">
+                <mat-list>
+                  <cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport-transaction-mat-card">
+
+                      <!-- Transaction-Mat-Card-->
+                      <mat-card *ngFor="let transaction of block.transactions" class="transaction-card">
+                        <mat-card-header class="transaction-card-header">
+                          <mat-card-title class="transaction-card-title">
+                            <a class="standout-text">Transaction ID:</a> {{transaction.transactionId}}
+                          </mat-card-title>
+                          <mat-card-subtitle class="transaction-card-subtitle">
+                            <a class="standout-text">Amount:</a> {{transaction.amount}}
+                          </mat-card-subtitle>
+
+                          <mat-card-content class="transaction-card-content">
+                            <a class="standout-text">SENDER:</a> {{block.previousHash}}
+                            <br>
+                            <a class="standout-text">RECIEPIENT:</a> {{block.hash}}
+                            <br>
+                          </mat-card-content>
+
+                        </mat-card-header>
+                      </mat-card>
+
+                    </cdk-virtual-scroll-viewport>
+                </mat-list>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+          
+
+        </mat-card>
+      </cdk-virtual-scroll-viewport>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+

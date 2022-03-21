@@ -23,6 +23,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatDividerModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    ScrollingModule,
+    MatListModule
   ],
   providers: [BlockchainService],
   bootstrap: [AppComponent]

@@ -51,10 +51,13 @@ public class BlockchainService {
 			ArrayList<TransactionManager> tempTm = new ArrayList<TransactionManager>();
 			for(Transaction t : b.transactions)
 			{
+				System.out.println(t);
 				TransactionManager tm = new TransactionManager(t.transactionId, BlockchainCryptography.getStringFromKey(t.sender), BlockchainCryptography.getStringFromKey(t.reciepient), t.amount);
 				tempTm.add(tm);
 			}
-			BlockManager bm = new BlockManager(b.getTimestamp(), b.getPreviousHash(), 0, b.getHash(), tempTm);
+			System.out.println("merkleroot:  " + b.merkleRoot);
+			System.out.println("block index: " + b.getIndex());
+			BlockManager bm = new BlockManager(b.getIndex(), b.getTimestamp(), b.getPreviousHash(), 0, b.merkleRoot, b.getHash(), tempTm);
 			tempBm.add(bm);
 		}
 		return tempBm;

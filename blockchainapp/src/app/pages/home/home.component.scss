@@ -9,3 +9,91 @@
   text-decoration:none;
   color: black;
 }
+
+
+.all-blocks-card {
+  margin: 10px;
+  width: 1660px;
+  margin-left: 5%;
+  background-color: whitesmoke;
+  align-content: center;
+}
+
+.all-blocks-card-title {
+  margin-left: 25em;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.block-card {
+  padding: 30px;
+  margin: 5px;
+}
+
+// .block-card-content {
+//   //height: 200px;
+// }
+
+.block-card-grid {
+  background-color: lightgray;
+}
+
+// .block-card-grid-tile {
+  
+// }
+
+/* Extras CSS */
+/* Extras CSS */
+/* Extras CSS */
+.transaction-heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25x;
+  padding: 10px;
+}
+
+.standout-text {
+  font-weight: bold;
+}
+
+/* Transaction Card CSS */
+/* Transaction Card CSS */
+/* Transaction Card CSS */
+.transaction-card {
+  height: 33px;
+}
+
+.transaction-card-header {
+  height: 0px;
+}
+
+.transaction-card-title {
+  font-size: small;
+}
+
+.transaction-card-subtitle {
+  font-size: small;
+}
+
+.transaction-card-content {
+  font-size: small;
+}
+
+/* SCROLL CSS */
+/* SCROLL CSS */
+/* SCROLL CSS */
+.scroll-viewport-transaction-mat-card {
+  height: 130px;
+  width: 1300px;
+  border: 2px solid #4E4E50;
+}
+
+.scroll-viewport-transaction-mat-card::-webkit-scrollbar {
+  display: none; /* Make the scroll bar invisible */
+}
+
+.scroll-viewport-block-mat-card {
+  height: 750px;
+  width: 1660px;
+  border: 2px solid #4E4E50;
+}

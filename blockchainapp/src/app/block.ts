@@ -1,10 +1,11 @@
 import { Transaction } from "./transaction";
 
 export interface Block {
-    id: number; 
+    number: any; 
     timestamp: string;
     previousHash: string;
     nonce: number;
+    merkleRoot: String;
     hash: string;
     transactions: any;
 }

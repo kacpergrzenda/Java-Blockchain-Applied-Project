@@ -28,12 +28,6 @@ export class HomeComponent implements OnInit {
     this.blockchainService.getBlockchain().subscribe(
       (response: Block[]) => {
         this.blocks = response;
-        
-        
-        console.log(this.blocks);
-        console.log("1: " + this.blocks[1].transactions[0].transactionId)
-        console.log("2: " + this.blocks[0].transactions)
-        //console.log(response)
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

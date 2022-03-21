@@ -19,17 +19,21 @@ public class BlockManager implements Serializable{
 	private String timestamp;
 	private String previousHash;
 	private int nonce;
+	private String merkleRoot;
 	private String hash;
+	private int num;
 	public ArrayList<TransactionManager> transactions = new ArrayList<TransactionManager>();
 	
 	public BlockManager()
 	{}
 	
-	public BlockManager(String timestamp, String previousHash, int nonce, String hash, ArrayList<TransactionManager> transactions) {
+	public BlockManager(int num, String timestamp, String previousHash, int nonce, String merkleRoot, String hash, ArrayList<TransactionManager> transactions) {
 		super();
+		this.num = num;
 		this.timestamp = timestamp;
 		this.previousHash = previousHash;
 		this.nonce = nonce;
+		this.merkleRoot = merkleRoot;
 		this.hash = hash;
 		this.transactions.addAll(transactions);
 	}
@@ -129,6 +133,21 @@ public class BlockManager implements Serializable{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getMerkleRoot() {
+		return merkleRoot;
+	}
+
+	public void setMerkleRoot(String merkleRoot) {
+		this.merkleRoot = merkleRoot;
+	}
+
+	public int getNumber() {
+		return num;
+	}
+
+	public void setNumber(int num) {
+		this.num = num;
 	}
 	
 
