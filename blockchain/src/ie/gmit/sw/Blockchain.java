@@ -10,8 +10,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import ie.gmit.sw.transaction.Transaction;
 import ie.gmit.sw.transaction.TransactionInput;
 import ie.gmit.sw.transaction.TransactionOutput;
-//import org.bouncycastle.jce.provider.BouncyCastleProvider;
-//import com.google.gson.GsonBuilder;
+
 public class Blockchain {
 	
 	public ArrayList<Block> blockchain = new ArrayList<Block>();
@@ -19,11 +18,10 @@ public class Blockchain {
 	public static ArrayList<Wallet> wallets = new ArrayList<Wallet>();
 	public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions.
 	
-	public static Wallet walletA;
-	public static Wallet walletB;
 	public Wallet coinBase = new Wallet();;
 	public Transaction genesisTransaction;
 	public Block currentBlock;
+	private float MINING_REWARD = 10f;
 	/* Checks if the Blockchain is valid by running a consesus by all the blocks in the chain */
 	public Boolean isChainValid() {
 		Block currentBlock; 
@@ -116,33 +114,31 @@ public class Blockchain {
 	public Block addBlock(Block b,PublicKey walletPkAwarded) {
 		if(blockchain.size() <= 0)
 		{
+			System.out.println("FIRST FIRST Block");
 			b.mineBlock(this.difficulty); // MineTheBlock
 			blockchain.add(this.currentBlock); // Once block is mined add the new block to block-chain
 			this.currentBlock = new Block(blockchain.size(), getLatestBlockHash());
-			this.currentBlock.addTransaction(coinBase.sendFunds(walletPkAwarded, 5f));
+			this.currentBlock.addTransaction(coinBase.sendFunds(walletPkAwarded, MINING_REWARD));
+			MINING_REWARD += 1;
 			return this.currentBlock;
 		}
 		else
 		{
-			this.currentBlock.addTransaction(coinBase.sendFunds(walletPkAwarded, 5f));
-			b.mineBlock(this.difficulty); // MineTheBlock
-			blockchain.add(b); // Once block is mined add the new block to block-chain
-			this.currentBlock = new Block(blockchain.size(), getLatestBlockHash());	
-			return b;
+			System.out.println("mined Block" + coinBase.getBalance());
+			
+			this.currentBlock.addTransaction(coinBase.sendFunds(walletPkAwarded, MINING_REWARD));
+			MINING_REWARD += 1;
+			this.currentBlock.mineBlock(this.difficulty); // MineTheBlock
+			blockchain.add(this.currentBlock); // Once block is mined add the new block to block-chain
+			this.currentBlock = new Block(blockchain.size(), getLatestBlockHash());
+			System.out.println("mined Block" + coinBase.getBalance());
+			System.out.println(isChainValid());
+			return this.currentBlock;
 		}		
 	}
 	
-	
-//	public void createGenesisBlock() {
-//		this.pendingTransactions.add("The Times Jan/03/2009 Chancellor on brink of second bailout for banks.");
-//		Block b = new Block(blockchain.size(), this.pendingTransactions, "0"); 
-//		b.mineBlock(this.difficulty);
-//		this.pendingTransactions.clear();
-//		blockchain.add(b);
-//	}
-	
 	public void createGenesisBlock() {
-		genesisTransaction = new Transaction(this.coinBase.publicKey, this.coinBase.publicKey, 1000f, null);
+		genesisTransaction = new Transaction(this.coinBase.publicKey, this.coinBase.publicKey, 100000f, null);
 		genesisTransaction.generateSignature(this.coinBase.privateKey);	 //manually sign the genesis transaction	
 		genesisTransaction.transactionId = "0"; //manually set the transaction id
 		genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.amount, genesisTransaction.transactionId)); //manually add the Transactions Output
@@ -150,93 +146,4 @@ public class Blockchain {
 		this.currentBlock = new Block(blockchain.size(), getLatestBlockHash());// Genesis Block Create
 		currentBlock.addTransaction(genesisTransaction);
 	}
-	 
-
-//	public static void main(String[] args) {
-//		Blockchain bc = new Blockchain();
-//		bc.addBlock("1"); // Genesis Block
-//		bc.addBlock("Second Block."); // Block 1
-//		bc.addBlock("third Block."); // Block 1
-//
-//		System.out.println(bc.blockchain.get(0));
-//		System.out.println("How many blocks is there: " + bc.blockchain.size());
-//		System.out.println("Is Blockchain Valid: " + bc.isChainValid());
-//	}
-//	public static void main(String[] args) {
-//		Security.addProvider(new BouncyCastleProvider()); 
-//		
-//		walletA = new Wallet();
-//		walletB = new Wallet();
-//		
-//		System.out.println("Private and public keys:");
-//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.privateKey));
-//		System.out.println(BlockchainCryptography.getStringFromKey(walletA.publicKey));
-//		
-//		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
-//		transaction.generateSignature(walletA.privateKey);
-//		//Verify the signature works and verify it from the public key
-//		System.out.println("Is signature verified");
-//		System.out.println(transaction.verifiySignature());
-//	}
-	
-//	public static void main(String[] args) {
-//		Blockchain bc = new Blockchain();
-//		//Create wallets:
-////		walletA = new Wallet();
-//		walletB = new Wallet();
-//		walletA = new Wallet();
-//		Wallet walletC = new Wallet();
-//		bc.createGenesisBlock();
-//		bc.addBlock(bc.currentBlock, walletA.publicKey);
-//		System.out.println("Is Chain Valid: " + bc.isChainValid());
-//		System.out.println("Gensis Balance: " + bc.coinBase.getBalance());
-//		
-//		
-//		//Block block1 = new Block(bc.blockchain.size(), bc.getLatestBlockHash());
-//		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-//		System.out.println("WalletB's balance is: " + walletB.getBalance());
-//		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
-//		bc.currentBlock.addTransaction(walletA.sendFunds(walletB.publicKey, 40f));
-//		bc.addBlock(bc.currentBlock, walletB.publicKey);
-//		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-//		System.out.println("WalletB's balance is: " + walletB.getBalance());
-//		System.out.println(bc.isChainValid());
-//		bc.currentBlock.addTransaction(walletA.sendFunds(walletB.publicKey, 5f));
-//		bc.currentBlock.addTransaction(walletB.sendFunds(walletC.publicKey, 5f));
-//		bc.currentBlock.addTransaction(walletC.sendFunds(walletA.publicKey, 5f));
-//		bc.addBlock(bc.currentBlock, walletA.publicKey);
-//		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-//		System.out.println("WalletB's balance is: " + walletB.getBalance());
-//		System.out.println("WalletC's balance is: " + walletC.getBalance());
-//		System.out.println(bc.currentBlock.transactions.size());
-//		System.out.println("Is Chain Valid: " + bc.isChainValid());
-//		bc.currentBlock.addTransaction(walletA.sendFunds(walletB.publicKey, 5f));
-//		bc.addBlock(bc.currentBlock, walletB.publicKey);
-//		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-//		System.out.println("WalletB's balance is: " + walletB.getBalance());
-//		
-////		//Block block2 = new Block(bc.blockchain.size(), bc.getLatestBlockHash());
-////		System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
-////		bc.currentBlock.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f));
-////		bc.addBlock(bc.currentBlock, walletB.publicKey);
-////		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-////		System.out.println("WalletB's balance is: " + walletB.getBalance());
-////		System.out.println(bc.isChainValid());
-////		
-////		//Block block3 = new Block(bc.blockchain.size(), bc.getLatestBlockHash());
-////		System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
-////		System.out.println("\nCB balance is: " + bc.coinBase.getBalance());
-////		System.out.println("WalletB's balance is: " + walletA.getBalance());
-////		bc.currentBlock.addTransaction(walletA.sendFunds( walletB.publicKey, 5));
-////		System.out.println("WalletA's balance is: " + walletA.getBalance());
-////		System.out.println("WalletB's balance is: " + walletB.getBalance());
-////		System.out.println(bc.isChainValid());
-////		System.out.println("WalletB's balance is: " + walletB.getBalance());
-////		bc.addBlock(bc.currentBlock, walletB.publicKey);
-////		System.out.println("WalletA's balance is: " + walletA.getBalance());
-////		System.out.println("WalletB's balance is: " + walletB.getBalance());
-////		bc.currentBlock.addTransaction(walletA.sendFunds( walletB.publicKey, 5));
-////		bc.addBlock(bc.currentBlock, walletA.publicKey);
-////		System.out.println("WalletB's balance is: " + walletB.getBalance());
-//	}
 }
