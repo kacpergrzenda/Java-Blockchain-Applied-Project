@@ -8,12 +8,11 @@ import ie.gmit.sw.BlockchainCryptography;
 public class Transaction {
 
 	public String transactionId;
-	public PublicKey sender; // senders address/public key.
-	public PublicKey reciepient; // Recipients address/public key.
+	public PublicKey sender; 
+	public PublicKey reciepient; 
 	public float amount;
 	public byte[] signature; // Prove the owner of sending wallet is authentic
 
-	// To prove receivers and senders current balance;
 	public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
 	public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 
@@ -27,20 +26,20 @@ public class Transaction {
 
 	}
 
-	// This Calculates the transaction hash (which will be used as its Id)
+	/* Calculate transaction hash */
 	private String calculateTransactionHash() {
 		hashChanger++; //increase the sequence to avoid 2 identical transactions having the same hash
 		String convertToHash = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount) + hashChanger;
 		return BlockchainCryptography.convertToHash(convertToHash);
 	}
 	
-	//Signs all the data we dont wish to be tampered with.
+	/* Generate a Digital Signature of the transaction*/
 	public void generateSignature(PrivateKey privateKey) {
 		String data = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount)	;
 		signature = BlockchainCryptography.applySignature(privateKey,data);		
 	}
 	
-	//Verifies the data we signed hasnt been tampered with
+	/* Verifies the data we signed hasnt been tampered with */
 	public boolean verifiySignature() {
 		String data = BlockchainCryptography.getStringFromKey(sender) + BlockchainCryptography.getStringFromKey(reciepient) + Float.toString(amount)	;
 		return BlockchainCryptography.verifySignature(sender, data, signature);
@@ -65,6 +64,7 @@ public class Transaction {
 		return total;
 	}
 	
+	/* Verify Transaction */
 	public boolean processTransaction() {
 		
 		if(verifiySignature() == false) {

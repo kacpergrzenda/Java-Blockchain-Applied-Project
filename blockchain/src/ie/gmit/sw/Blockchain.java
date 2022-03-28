@@ -22,7 +22,8 @@ public class Blockchain {
 	public Transaction genesisTransaction;
 	public Block currentBlock;
 	private float MINING_REWARD = 10f;
-	/* Checks if the Blockchain is valid by running a consesus by all the blocks in the chain */
+	
+	/* Checks if the Blockchain is valid by running a consensus by all the blocks in the chain */
 	public Boolean isChainValid() {
 		Block currentBlock; 
 		Block previousBlock;
@@ -97,7 +98,8 @@ public class Blockchain {
 		}
 		return true;
 	}
-	
+
+	/* Retrieve the latest Hash of the newest Block */
 	private String getLatestBlockHash() {
 		if(blockchain.size() <= 0) {
 			return "0";
@@ -106,11 +108,7 @@ public class Blockchain {
 		}
 	}
 	
-//	public void minePendingTransactions(String minersHash) {
-//		
-//		blockchain.get(blockchain.size()-1).mineBlock(this.difficulty);
-//	}
-	
+	/* Verify and Add the newest block onto the Blockchain, Reward Miner with a reward */
 	public Block addBlock(Block b,PublicKey walletPkAwarded) {
 		if(blockchain.size() <= 0)
 		{
@@ -123,20 +121,18 @@ public class Blockchain {
 			return this.currentBlock;
 		}
 		else
-		{
-			System.out.println("mined Block" + coinBase.getBalance());
-			
+		{			
 			this.currentBlock.addTransaction(coinBase.sendFunds(walletPkAwarded, MINING_REWARD));
 			MINING_REWARD += 1;
 			this.currentBlock.mineBlock(this.difficulty); // MineTheBlock
 			blockchain.add(this.currentBlock); // Once block is mined add the new block to block-chain
 			this.currentBlock = new Block(blockchain.size(), getLatestBlockHash());
-			System.out.println("mined Block" + coinBase.getBalance());
 			System.out.println(isChainValid());
 			return this.currentBlock;
 		}		
 	}
 	
+	/* Generates and create the Gensis block */
 	public void createGenesisBlock() {
 		genesisTransaction = new Transaction(this.coinBase.publicKey, this.coinBase.publicKey, 100000f, null);
 		genesisTransaction.generateSignature(this.coinBase.privateKey);	 //manually sign the genesis transaction	

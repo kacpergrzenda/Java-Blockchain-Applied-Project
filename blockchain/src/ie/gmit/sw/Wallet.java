@@ -25,6 +25,7 @@ public class Wallet implements Serializable{
 		generateKeyPair();
 	}
 	
+	/* Generate a unique key Pair, Private and Public key. Keys used to operate wallet */
 	public void generateKeyPair() {
 		if(Security.getProvider("BC") == null) {
 		      Security.addProvider(new BouncyCastleProvider());
@@ -44,6 +45,7 @@ public class Wallet implements Serializable{
 		}
 	}
 	
+	/* Retrieves Current wallet Balance */
 	public float getBalance() {
 		float total = 0;	
         for (Map.Entry<String, TransactionOutput> item: Blockchain.UTXOs.entrySet()){
@@ -56,7 +58,7 @@ public class Wallet implements Serializable{
 		return total;
 	}
 	
-	//Generates and returns a new transaction from this wallet.
+	/* Generate and create a new transaction from the wallet */
 	public Transaction sendFunds(PublicKey _recipient,float value ) {
 		if(getBalance() < value) { //gather balance and check funds.
 			System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
