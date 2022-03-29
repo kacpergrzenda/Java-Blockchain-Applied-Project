@@ -1,6 +1,12 @@
 package ie.gmit.blockchainmanager.model;
 
-public class TransactionManager {
+import java.io.Serializable;
+
+public class TransactionManager implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String transactionId;
 	public String sender;
 	public String reciepient;

@@ -39,12 +39,9 @@ public class BlockchainService {
 			ArrayList<TransactionManager> tempTm = new ArrayList<TransactionManager>();
 			for(Transaction t : b.transactions)
 			{
-				System.out.println(t);
 				TransactionManager tm = new TransactionManager(t.transactionId, BlockchainCryptography.getStringFromKey(t.sender), BlockchainCryptography.getStringFromKey(t.reciepient), t.amount);
 				tempTm.add(tm);
 			}
-			System.out.println("merkleroot:  " + b.merkleRoot);
-			System.out.println("block index: " + b.getIndex());
 			BlockManager bm = new BlockManager(b.getIndex(), b.getTimestamp(), b.getPreviousHash(), 0, b.merkleRoot, b.getHash(), tempTm);
 			tempBm.add(bm);
 		}
@@ -91,7 +88,10 @@ public class BlockchainService {
 	
 	public String mineBlock(String pk) {
 		int tempSize = bc.blockchain.size();
+//		BlockManager bm = new BlockManager(bc.currentBlock.getIndex(), bc.currentBlock.getTimestamp(), bc.currentBlock.getPreviousHash(), 0, bc.currentBlock.merkleRoot, bc.currentBlock.getHash(), checkCurrentBlockTransactions());
+//		br.save(bm);
 		bc.addBlock(bc.currentBlock, publicKeyMap.get(pk));
+		
 		if(tempSize < bc.blockchain.size()) {
 			return "Block Mined";
 		}
