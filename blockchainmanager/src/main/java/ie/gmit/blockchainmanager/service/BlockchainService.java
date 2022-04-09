@@ -1,14 +1,14 @@
 package ie.gmit.blockchainmanager.service;
 
-import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ie.gmit.blockchainmanager.model.BlockClone;
 import ie.gmit.blockchainmanager.model.BlockManager;
 import ie.gmit.blockchainmanager.model.TransactionManager;
 import ie.gmit.blockchainmanager.repo.BlockchainRepo;
@@ -48,6 +48,7 @@ public class BlockchainService {
 		return tempBm;
 	}
 	
+	@SuppressWarnings("static-access")
 	public String[] genrateWallet() {
 		Wallet generatedWallet = new Wallet();
 		bc.wallets.add(generatedWallet);
@@ -88,8 +89,8 @@ public class BlockchainService {
 	
 	public String mineBlock(String pk) {
 		int tempSize = bc.blockchain.size();
-//		BlockManager bm = new BlockManager(bc.currentBlock.getIndex(), bc.currentBlock.getTimestamp(), bc.currentBlock.getPreviousHash(), 0, bc.currentBlock.merkleRoot, bc.currentBlock.getHash(), checkCurrentBlockTransactions());
-//		br.save(bm);
+		BlockClone bm = new BlockClone(bc.currentBlock.getIndex(), bc.currentBlock.getTimestamp(), bc.currentBlock.getPreviousHash(), 0, bc.currentBlock.getHash());
+		br.save(bm);
 		bc.addBlock(bc.currentBlock, publicKeyMap.get(pk));
 		
 		if(tempSize < bc.blockchain.size()) {

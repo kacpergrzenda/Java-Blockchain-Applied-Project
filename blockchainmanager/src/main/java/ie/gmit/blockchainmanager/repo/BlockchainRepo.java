@@ -2,10 +2,9 @@ package ie.gmit.blockchainmanager.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ie.gmit.blockchainmanager.model.BlockManager;
-import ie.gmit.blockchainmanager.model.Blockchain;
-import ie.gmit.sw.Block;
+import ie.gmit.blockchainmanager.model.BlockClone;
 
-public interface BlockchainRepo extends JpaRepository<BlockManager, Long>{
+
+public interface BlockchainRepo extends JpaRepository<BlockClone, Long>{
 
 }
